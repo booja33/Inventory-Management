@@ -43,7 +43,7 @@ const RestockRequests = () => {
   );
 
   return (
-    <div>
+    <div className='m-4'>
       <h2 className="mb-1 fw-bold">Restock Requests</h2>
       <p className="text-muted mb-4">Compact list of requests from admin. Approve or reject with a click.</p>
 

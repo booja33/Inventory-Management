@@ -82,7 +82,7 @@ const handleSignup = async (e) => {
     }
 
     // ✅ Redirect to home page
-    navigate("/home");
+    navigate("/dashboard");
 
   } catch (error) {
     console.error("Signup error:", error);
@@ -166,7 +166,7 @@ const handleSignup = async (e) => {
           <button type="submit" className="btn btn-dark w-100">Sign Up</button>
         </form>
         <div className="text-center mt-3">
-          <p>Already have an account? <Link to="/" className="text-primary">Sign In</Link></p>
+          <p>Already have an account? <Link to="/login" className="text-primary">Sign In</Link></p>
         </div>
       </div>
     </div>

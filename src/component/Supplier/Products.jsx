@@ -4,7 +4,7 @@ import { FaSearch } from 'react-icons/fa';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 const initialProductData = [
   { name: 'Steel Rods', category: 'Raw Materials', stock: 80, status: 'In Stock', lastRestocked: '2025-04-09' },
@@ -141,7 +141,7 @@ const Products = () => {
   );
 
   return (
-    <div>
+    <div className='m-4'>
       <h2 className="mb-1 fw-bold">Products</h2>
       <p className="text-muted mb-4">View and manage all the products you supply.</p>
 

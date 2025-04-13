@@ -42,8 +42,6 @@ const Login = () => {
 
 const handleLogin = async (e) => {
   e.preventDefault();
-  const navigate = useNavigate(); // make sure this is inside a functional component
-
   try {
     const response = await axios.post("http://localhost:8080/api/auth/login", {
       email,
@@ -70,7 +68,6 @@ const handleLogin = async (e) => {
 };
 
   
-    // navigate("/home")
   
 
   return (

@@ -6,27 +6,24 @@ import {
   FaClipboardList,
   FaTruck,
   FaBars,
-  
-
- 
- 
-
 } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
-const Sidebar = ({ isSidebarOpen = true, toggleSidebar, onSelect, active }) => {
+const Sidebar = ({ isSidebarOpen = true, toggleSidebar }) => {
+  const navigate = useNavigate();
+
   const navItems = [
-    { icon: <FaTachometerAlt />, label: 'Dashboard' },
-    { icon: <FaBoxOpen />, label: 'Products' },
-    { icon: <FaClipboardList />, label: 'Restock Requests' },
-    { icon: <FaTruck />, label: 'Deliveries' },
-    { icon: <FaClipboardList /> , label: 'Orders' },
-    { icon: <FaTruck />, label: 'Chatbot' },
-    
-    { icon: <FaClipboardList />, label: 'Invoices' },
-    { icon: <FaTruck />, label: 'Payments' },
-    { icon: <FaClipboardList />, label: 'Report' },
-    { icon: <FaTruck />, label: 'Settings' },
-    { icon: <FaClipboardList />, label: 'Logout' },
+    { icon: <FaTachometerAlt />, label: 'Dashboard', path: '/dashboard' },
+    { icon: <FaBoxOpen />, label: 'Products', path: '/products' },
+    { icon: <FaClipboardList />, label: 'Requests', path: '/restock-requests' },
+    { icon: <FaTruck />, label: 'Deliveries', path: '/deliveries' },
+    { icon: <FaClipboardList />, label: 'Orders', path: '/orders' },
+    { icon: <FaTruck />, label: 'Chatbot', path: '/chatbot' },
+    { icon: <FaClipboardList />, label: 'Invoices', path: '/invoices' },
+    { icon: <FaTruck />, label: 'Payments', path: '/payments' },
+    { icon: <FaClipboardList />, label: 'Report', path: '/report' },
+    { icon: <FaTruck />, label: 'Settings', path: '/settings' },
+    { icon: <FaClipboardList />, label: 'Logout', path: '/logout' },
   ];
 
   return (
@@ -34,7 +31,7 @@ const Sidebar = ({ isSidebarOpen = true, toggleSidebar, onSelect, active }) => {
       className="d-flex flex-column text-white p-3 bg-dark shadow"
       style={{
         width: isSidebarOpen ? '250px' : '70px',
-        transition: 'width 0.3s ease',
+        transition: 'width 0.2s ease-out',
         minHeight: '100vh',
       }}
     >
@@ -49,11 +46,9 @@ const Sidebar = ({ isSidebarOpen = true, toggleSidebar, onSelect, active }) => {
         {navItems.map((item, index) => (
           <li key={index} className="nav-item mb-3">
             <button
-              className={`nav-link d-flex align-items-center text-white bg-transparent border-0 ${
-                active === item.label ? 'fw-bold text-primary' : ''
-              }`}
+              className="nav-link d-flex align-items-center text-white bg-transparent border-0"
               style={{ gap: '10px', textAlign: 'left' }}
-              onClick={() => onSelect(item.label)}
+              onClick={() => navigate(item.path)}
             >
               {item.icon}
               {isSidebarOpen && <span>{item.label}</span>}
