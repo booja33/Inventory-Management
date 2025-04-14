@@ -9,6 +9,8 @@ import Deliveries from "./component/Supplier/Deliveries";
 import Chatbot from "./component/Supplier/Chatbot";
 import Report from "./component/Supplier/Report";
 import SupplierLayout from "./component/Supplier/SupplierLayout";
+import Invoices from "./component/Supplier/Invoices";
+
 
 function App() {
   return (
@@ -51,7 +53,7 @@ function App() {
           </SupplierLayout>
         }
       />
-      <Route path="/orders" element={<SupplierLayout></SupplierLayout>} />
+     
       <Route
         path="/chatbot"
         element={
@@ -60,7 +62,13 @@ function App() {
           </SupplierLayout>
         }
       />
-      <Route path="/invoices" element={<SupplierLayout></SupplierLayout>} />
+      <Route 
+        path="/invoices" 
+        element={
+          <SupplierLayout>
+            <Invoices />
+          </SupplierLayout>} 
+      />
       <Route path="/payments" element={<SupplierLayout></SupplierLayout>} />
       <Route
         path="/report"

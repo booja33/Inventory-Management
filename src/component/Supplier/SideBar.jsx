@@ -17,7 +17,7 @@ const Sidebar = ({ isSidebarOpen = true, toggleSidebar }) => {
     { icon: <FaBoxOpen />, label: 'Products', path: '/products' },
     { icon: <FaClipboardList />, label: 'Requests', path: '/restock-requests' },
     { icon: <FaTruck />, label: 'Deliveries', path: '/deliveries' },
-    { icon: <FaClipboardList />, label: 'Orders', path: '/orders' },
+    
     { icon: <FaTruck />, label: 'Chatbot', path: '/chatbot' },
     { icon: <FaClipboardList />, label: 'Invoices', path: '/invoices' },
     { icon: <FaTruck />, label: 'Payments', path: '/payments' },
