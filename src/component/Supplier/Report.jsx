@@ -44,11 +44,11 @@ const Reports = () => {
   const [endDate, setEndDate] = useState("");
 
   const chartData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",  "Sep"],
     datasets: [
       {
         label: "Stock Used",
-        data: [120, 90, 150, 100, 80, 130],
+        data: [120, 90, 150, 100, 80, 130,97, 110, 140],
         backgroundColor:
           chartType === "pie"
             ? [
@@ -58,6 +58,9 @@ const Reports = () => {
                 "#4BC0C0",
                 "#9966FF",
                 "#FF9F40",
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56",
               ]
             : "rgba(54, 162, 235, 0.6)",
         borderColor: "rgba(54, 162, 235, 1)",

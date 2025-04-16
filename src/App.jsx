@@ -10,7 +10,8 @@ import Chatbot from "./component/Supplier/Chatbot";
 import Report from "./component/Supplier/Report";
 import SupplierLayout from "./component/Supplier/SupplierLayout";
 import Invoices from "./component/Supplier/Invoices";
-
+import Settings from "./component/Supplier/Settings";
+// import Payments from "./component/Supplier/Payment";
 
 function App() {
   return (
@@ -53,7 +54,7 @@ function App() {
           </SupplierLayout>
         }
       />
-     
+
       <Route
         path="/chatbot"
         element={
@@ -62,14 +63,22 @@ function App() {
           </SupplierLayout>
         }
       />
-      <Route 
-        path="/invoices" 
+      <Route
+        path="/invoices"
         element={
           <SupplierLayout>
             <Invoices />
-          </SupplierLayout>} 
+          </SupplierLayout>
+        }
       />
-      <Route path="/payments" element={<SupplierLayout></SupplierLayout>} />
+      {/* <Route
+        path="/payments"
+        element={
+          <SupplierLayout>
+            <Payments />
+          </SupplierLayout>
+        }
+      /> */}
       <Route
         path="/report"
         element={
@@ -78,7 +87,14 @@ function App() {
           </SupplierLayout>
         }
       />
-      <Route path="/settings" element={<SupplierLayout></SupplierLayout>} />
+      <Route
+        path="/settings"
+        element={
+          <SupplierLayout>
+            <Settings />
+          </SupplierLayout>
+        }
+      />
       <Route path="/logout" element={<SupplierLayout></SupplierLayout>} />
     </Routes>
   );

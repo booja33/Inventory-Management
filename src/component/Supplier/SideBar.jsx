@@ -6,6 +6,8 @@ import {
   FaClipboardList,
   FaTruck,
   FaBars,
+  FaFileInvoice,
+  FaCog
 } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,10 +21,10 @@ const Sidebar = ({ isSidebarOpen = true, toggleSidebar }) => {
     { icon: <FaTruck />, label: 'Deliveries', path: '/deliveries' },
     
     { icon: <FaTruck />, label: 'Chatbot', path: '/chatbot' },
-    { icon: <FaClipboardList />, label: 'Invoices', path: '/invoices' },
-    { icon: <FaTruck />, label: 'Payments', path: '/payments' },
+    { icon: <FaFileInvoice />, label: 'Invoices', path: '/invoices' },
+    // { icon: <FaTruck />, label: 'Payments', path: '/payments' },
     { icon: <FaClipboardList />, label: 'Report', path: '/report' },
-    { icon: <FaTruck />, label: 'Settings', path: '/settings' },
+    { icon: <FaCog />, label: 'Settings', path: '/settings' },
     { icon: <FaClipboardList />, label: 'Logout', path: '/logout' },
   ];
 
