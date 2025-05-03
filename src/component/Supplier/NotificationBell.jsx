@@ -1,72 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import { FaBell, FaBoxOpen, FaClock, FaTruck } from 'react-icons/fa';
+import React, { useState, useEffect, useRef } from 'react';
+import { FaBell, FaBoxOpen } from 'react-icons/fa';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const initialNotifications = [
-  {
-    id: 1,
-    type: 'Low Stock',
-    message: 'Low stock alert: Copper Wire',
-    icon: <FaBoxOpen className="me-2 text-danger" />,
-  },
-  {
-    id: 2,
-    type: 'Expiry',
-    message: 'Expiry reminder: Paint Thinner',
-    icon: <FaClock className="me-2 text-warning" />,
-  },
-  {
-    id: 3,
-    type: 'Order',
-    message: 'Order #1234 has been shipped',
-    icon: <FaTruck className="me-2 text-primary" />,
-  },
-];
+import SockJS from 'sockjs-client';
+import { Client } from '@stomp/stompjs';
 
 const NotificationBell = () => {
-  const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
-  const [toastedIds, setToastedIds] = useState([]);
+  const [toastedMessages, setToastedMessages] = useState([]);
+  const stompClientRef = useRef(null);
 
-  // Simulate incoming notifications
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setNotifications(initialNotifications);
-      setUnreadCount(initialNotifications.length);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Trigger persistent toasts (manual close only)
-  useEffect(() => {
-    notifications.forEach((note) => {
-      if (!toastedIds.includes(note.id)) {
-        toast(
-          <div className="d-flex align-items-center">
-            {note.icon}
-            <span>{note.message}</span>
-          </div>,
-          {
-            toastId: note.id,
-            position: 'top-right',
-            autoClose: false, // ⛔ no auto-close
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
+    const client = new Client({
+      webSocketFactory: () => new SockJS('http://localhost:8080/ws'),
+      reconnectDelay: 5000,
+      onConnect: () => {
+        console.log('Connected to WebSocket');
+        client.subscribe('/topic/notifications', (message) => {
+          const notif = JSON.parse(message.body);
+          if (!toastedMessages.includes(notif.message)) {
+            toast(
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <FaBoxOpen style={{ marginRight: '8px', color: 'red' }} />
+                <span>{notif.message}</span>
+              </div>,
+              {
+                position: 'top-right',
+                autoClose: false,
+                closeOnClick: true,
+                draggable: true,
+              }
+            );
+            setToastedMessages((prev) => [...prev, notif.message]);
+            setUnreadCount((prev) => prev + 1);
           }
-        );
-        setToastedIds((prev) => [...prev, note.id]);
-      }
+        });
+      },
+      onStompError: (frame) => {
+        console.error('STOMP error:', frame);
+      },
     });
-  }, [notifications, toastedIds]);
+
+    stompClientRef.current = client;
+    client.activate();
+
+    return () => {
+      if (stompClientRef.current) {
+        stompClientRef.current.deactivate();
+      }
+    };
+  }, [toastedMessages]);
 
   const handleClick = () => {
     setUnreadCount(0);
   };
 
   return (
-    <div className="position-relative">
+    <div style={{ position: 'relative' }}>
       <FaBell
         size={20}
         style={{ cursor: 'pointer', color: 'black' }}
@@ -88,14 +78,7 @@ const NotificationBell = () => {
           {unreadCount}
         </span>
       )}
-
-      {/* 🟢 Toast container with persistent settings */}
-      <ToastContainer
-        newestOnTop
-        pauseOnFocusLoss={false}
-        closeOnClick
-        draggable
-      />
+      <ToastContainer newestOnTop />
     </div>
   );
 };

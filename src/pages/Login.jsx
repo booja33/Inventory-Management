@@ -5,69 +5,84 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [role, setRole] = useState("");
+  // const navigate = useNavigate();
 
   // const handleLogin = async (e) => {
   //   e.preventDefault();
-  
   //   try {
-  //     const response = await fetch("http://localhost:8080/api/auth/login", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ email, password }),
+  //     const response = await axios.post("http://localhost:8080/api/auth/login", {
+  //       email,
+  //       password,
+  //       role,
   //     });
-  
-  
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       localStorage.setItem("token", data.token);
-  //       localStorage.setItem("role", data.role); // Optional, if you still need roles
-  
 
-  //       navigate("/home");
+
+  //     // Assuming the response contains user info (email, role, etc.)
+  //     const  user  = response.data;
+  //     email = user.email;
+  //     name = user.name;
+  //     console.log(user.role);
+      
+
+  //     // Store user info in localStorage
+  //     localStorage.setItem('user', JSON.stringify(user));
+
+  //     // Redirect based on the user's role
+  //     if (user.role === "ADMIN") {
+  //       navigate("/AdminDashboard",{name:name,email:email});
+  //       alert("Login successful!");
+
   //     } else {
-  //       alert("Invalid credentials!");
+  //       navigate("/dashboard");
+  //       alert("Login successful!");
+
   //     }
   //   } catch (error) {
-  //     console.error("Login error:", error);
+  //     console.error(error);
+  //     alert("Login failed. Please check your credentials.");
   //   }
   // };
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+  const navigate = useNavigate();
 
-const handleLogin = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await axios.post("http://localhost:8080/api/auth/login", {
-      email,
-      password,
-    });
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8080/api/auth/login", {
+        email,
+        password,
+        role,
+      });
 
-    const data = response.data;
+      const user = response.data;
+      const userEmail = user.email;
+      const userName = user.name;
+      const userRole = user.role;
 
-    // ✅ Store token and role in localStorage
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("role", data.role); // Optional, if your backend returns role
+      console.log(userRole);
 
-    // ✅ Redirect to home page
-    navigate("/dashboard"); // Change this to your desired route
+      // Store user info in localStorage
+      localStorage.setItem('user', JSON.stringify(user));
 
-  } catch (error) {
-    if (error.response && error.response.status === 401) {
-      alert("Invalid credentials!");
-    } else {
-      console.error("Login error:", error);
-      alert("Something went wrong. Please try again.");
+      // Redirect based on the user's role
+      if (userRole === "ADMIN") {
+        navigate("/AdminDashboard", { state: { name: userName, email: userEmail } });
+        alert("Login successful!");
+      } else {
+        navigate("/dashboard");
+        alert("Login successful!");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Login failed. Please check your credentials.");
     }
-  }
-};
-
-  
-  
+  };
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 bg-dark">
@@ -102,6 +117,19 @@ const handleLogin = async (e) => {
               />
             </div>
           </div>
+          <div>
+            <div className="mb-3">
+              <label className="form-label">Role</label>
+              <select className="form-select"
+                value={role} 
+                onChange={(e) => setRole(e.target.value)} required>
+                <option value="" disabled>Select your role</option>
+                <option value="ADMIN">Admin</option>
+                <option value="user">User</option>
+              </select>
+            </div>
+          </div>
+
           <div className="d-flex justify-content-between align-items-center mb-3">
             <div>
               <input type="checkbox" className="form-check-input me-2" />
@@ -111,17 +139,9 @@ const handleLogin = async (e) => {
           </div>
           <button type="submit" className="btn btn-dark w-100">Sign In</button>
         </form>
+
         <div className="text-center mt-3">
           <p>Don't have an account? <Link to="/signup" className="text-primary">Sign Up</Link></p>
-          {/* <p>Or With</p>
-          <div className="d-flex justify-content-center">
-            <button className="btn btn-outline-dark me-2">
-              <img src="https://img.icons8.com/color/20/000000/google-logo.png" alt="Google" /> Google
-            </button>
-            <button className="btn btn-outline-dark">
-              <img src="https://img.icons8.com/ios-filled/20/000000/mac-os.png" alt="Apple" /> Apple
-            </button> */}
-          {/* </div> */}
         </div>
       </div>
     </div>

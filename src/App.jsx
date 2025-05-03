@@ -1,3 +1,5 @@
+
+
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
@@ -12,12 +14,24 @@ import SupplierLayout from "./component/Supplier/SupplierLayout";
 import Invoices from "./component/Supplier/Invoices";
 import Settings from "./component/Supplier/Settings";
 // import Payments from "./component/Supplier/Payment";
+import AdminDashboard from "./component/Admin/AdminDashboard";
+import AdminLayout from "./component/Admin/AdminLayout";
+import Users from "./component/Admin/Users";
+import AdminStockRequests from "./component/Admin/AdminStockRequests";
+import Reports from "./component/Admin/Reports";
+import AdmSettings from "./component/Admin/AdmSettings";
+import ProductAdminPage from "./component/Admin/ProductAdminPage";
+
+
+
 
 function App() {
   return (
     <Routes>
+    
       {/* Public Routes */}
       <Route path="/" element={<LandingPage />} />
+     
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
 
@@ -95,7 +109,58 @@ function App() {
           </SupplierLayout>
         }
       />
+     
       <Route path="/logout" element={<SupplierLayout></SupplierLayout>} />
+      {/* Admin Routes */}
+      <Route
+        path="/AdminDashboard"
+        element={
+          <AdminLayout>
+            <AdminDashboard />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/users"
+        element={
+          <AdminLayout>
+            <Users/>
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/AdminStockRequests"
+        element={
+          <AdminLayout>
+            <AdminStockRequests />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/reports"
+        element={
+          <AdminLayout>
+            <Reports />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/Admsettings"
+        element={
+          <AdminLayout>
+            <AdmSettings />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/ProductAdminPage"
+        element={
+          <AdminLayout>
+            <ProductAdminPage />
+          </AdminLayout>
+        }
+      />
+
     </Routes>
   );
 }

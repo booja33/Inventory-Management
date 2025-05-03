@@ -11,53 +11,10 @@ const Signup = () => {
     name: "",
     email: "",
     password: "",
-    role: "",
+    role: "User",
   });
 
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
 
-//  // Add this at the top
-
-// const navigate = useNavigate(); // Add this inside your Signup component
-
-// const handleSignup = async (e) => {
-//   e.preventDefault();
-
-//   try {
-//     const response = await fetch("http://localhost:8080/api/auth/signup", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(formData),
-//     });
-
-//     if (response.ok) {
-//       const data = await response.json();
-//       alert("Signup successful!");
-
-//       // Optional: Store token & role if the backend returns it immediately
-//       if (data.token) {
-//         localStorage.setItem("token", data.token);
-//       }
-//       if (data.role) {
-//         localStorage.setItem("role", data.role);
-//       }
-
-//       // ✅ Redirect to home page
-//       navigate("/home");
-//     } else {
-//       alert("Signup failed.");
-//     }
-//   } catch (error) {
-//     console.error("Signup error:", error);
-//   }
-// };
-
-
-// Inside your Signup component
 const navigate = useNavigate();
 
 const handleChange = (e) => {
@@ -70,24 +27,13 @@ const handleSignup = async (e) => {
   try {
     const response = await axios.post("http://localhost:8080/api/auth/signup", formData);
 
-    const data = response.data;
     alert("Signup successful!");
-
-    // Optional: Store token & role if the backend returns it immediately
-    if (data.token) {
-      localStorage.setItem("token", data.token);
-    }
-    if (data.role) {
-      localStorage.setItem("role", data.role);
-    }
-
-    // ✅ Redirect to home page
-    navigate("/dashboard");
+    navigate("/login"); 
 
   } catch (error) {
     console.error("Signup error:", error);
     if (error.response && error.response.data && error.response.data.message) {
-      alert(`Signup failed: ${error.response.data.message}`);
+      alert('Signup failed: ${error.response.data.message}');
     } else {
       alert("Signup failed. Please try again.");
     }
@@ -145,20 +91,7 @@ const handleSignup = async (e) => {
               />
             </div>
           </div>
-          <div className="mb-3">
-            <label className="form-label">Role</label>
-            <select
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              className="form-select"
-              required
-            >
-              <option value="">Select Role</option>
-              <option value="USER">User</option>
-              <option value="ADMIN">Admin</option>
-            </select>
-          </div>
+         
           <div className="mb-3">
             <input type="checkbox" className="form-check-input me-2" required />
             <label className="form-check-label">I agree to the Terms & Conditions</label>

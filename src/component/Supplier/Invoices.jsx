@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  InputGroup,
-  Form,
-  Table,
-  Badge,
-  Button,
-  Card,
-} from "react-bootstrap";
+import { InputGroup, Form, Table, Badge, Button, Card } from "react-bootstrap";
 import {
   FaSearch,
   FaFileInvoice,
@@ -15,8 +8,7 @@ import {
   FaTimesCircle,
 } from "react-icons/fa";
 import jsPDF from "jspdf";
-import autoTable from 'jspdf-autotable';
-
+import autoTable from "jspdf-autotable";
 
 // Dummy invoice data
 const dummyInvoices = [
@@ -51,33 +43,39 @@ const statusBadge = (status) => {
     Pending: { bg: "warning", icon: <FaClock className="me-1" /> },
   };
   const { bg, icon } = styles[status] || { bg: "secondary", icon: null };
-  return <Badge bg={bg}>{icon} {status}</Badge>;
+  return (
+    <Badge bg={bg}>
+      {icon} {status}
+    </Badge>
+  );
 };
 
 const Invoices = () => {
-    const generatePDF = (invoice) => {
-        const doc = new jsPDF();
-      
-        doc.setFontSize(18);
-        doc.text("Invoice", 14, 22);
-      
-        doc.setFontSize(12);
-        doc.text(`Invoice ID: ${invoice.id}`, 14, 35);
-        doc.text(`Product: ${invoice.product}`, 14, 45);
-        doc.text(`Amount: ₹${invoice.amount}`, 14, 55);
-        doc.text(`Status: ${invoice.status}`, 14, 65);
-        doc.text(`Date: ${invoice.date}`, 14, 75);
-      
-        doc.setFontSize(10);
-        doc.text("Thank you for your business!", 14, 90);
-      
-        doc.save(`${invoice.id}.pdf`);
-      };
-      
+  const generatePDF = (invoice) => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text("Invoice", 14, 22);
+
+    doc.setFontSize(12);
+    doc.text(`Invoice ID: ${invoice.id}`, 14, 35);
+    doc.text(`Product: ${invoice.product}`, 14, 45);
+    doc.text(`Amount: ₹${invoice.amount}`, 14, 55);
+    doc.text(`Status: ${invoice.status}`, 14, 65);
+    doc.text(`Date: ${invoice.date}`, 14, 75);
+
+    doc.setFontSize(10);
+    doc.text("Thank you for your business!", 14, 90);
+
+    doc.save(`${invoice.id}.pdf`);
+  };
+
   const [searchTerm, setSearchTerm] = useState("");
 
   const filtered = dummyInvoices.filter((item) =>
-    `${item.id} ${item.product}`.toLowerCase().includes(searchTerm.toLowerCase())
+    `${item.id} ${item.product}`
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -122,13 +120,12 @@ const Invoices = () => {
                   <td>{item.date}</td>
                   <td>
                     <Button
-  size="sm"
-  variant="outline-dark"
-  onClick={() => generatePDF(item)}
->
-  Download
-</Button>
-
+                      size="sm"
+                      variant="outline-dark"
+                      onClick={() => generatePDF(item)}
+                    >
+                      Download
+                    </Button>
                   </td>
                 </tr>
               ))
