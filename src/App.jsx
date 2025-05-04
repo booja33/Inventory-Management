@@ -8,7 +8,7 @@ import Dashboard from "./component/Supplier/DashBoard";
 import Products from "./component/Supplier/Products";
 import RestockRequests from "./component/Supplier/RestockRequests";
 import Deliveries from "./component/Supplier/Deliveries";
-import Chatbot from "./component/Supplier/Chatbot";
+import Chatbot from "./component/Supplier/ChatBot";
 import Report from "./component/Supplier/Report";
 import SupplierLayout from "./component/Supplier/SupplierLayout";
 import Invoices from "./component/Supplier/Invoices";

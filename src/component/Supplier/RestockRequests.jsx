@@ -19,7 +19,14 @@ const RestockRequests = () => {
   }, []);
 
   const handleStatusChange = (id, newStatus) => {
-    axios.patch(`http://localhost:8080/api/requests/${id}/status`, { status: newStatus })
+    axios.patch(`http://localhost:8080/api/requests/${id}/status`, 
+      { status: newStatus },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true // Optional if you're using cookies/auth
+      })
       .then(response => {
         setRequests(prevRequests =>
           prevRequests.map(req =>
@@ -31,7 +38,7 @@ const RestockRequests = () => {
         console.error("There was an error updating the status!", error);
       });
   };
-
+  
   const filtered = requests.filter(req =>
     req.product.toLowerCase().includes(searchTerm.toLowerCase()) ||
     req.id.toLowerCase().includes(searchTerm.toLowerCase())
